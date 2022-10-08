@@ -10,6 +10,7 @@
 #![allow(clippy::blanket_clippy_restriction_lints)]
 #![allow(clippy::implicit_return)]
 #![allow(clippy::panic)]
+#![allow(clippy::expect_used)]
 #![allow(clippy::arithmetic_side_effects)]
 #![allow(clippy::integer_arithmetic)]
 #![cfg_attr(not(feature = "std"), no_std)]
@@ -65,8 +66,14 @@ impl<T> ExpectoPatronumExt for Option<T> {
 type Patronus = &'static str;
 
 /// Choose a patronus based on the provided `msg`.
-fn choose_patronus(_msg: &str) -> Patronus {
-    Patronus::default()
+#[allow(clippy::indexing_slicing)]
+fn choose_patronus(msg: &str) -> Patronus {
+    // ASSETS is guaranteed to be non-empty by build.rs
+
+    let n: u128 = fastmurmur3::hash(msg.as_bytes())
+        % u128::try_from(ASSETS.len()).expect("`usize` should fit in `u128`");
+
+    ASSETS[usize::try_from(n).expect("Calculated index should fit in `usize`")]
 }
 
 /// Construct a panic message concatenating provided `patronus` and `msg`.
