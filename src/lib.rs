@@ -21,7 +21,7 @@ use core::{fmt::Debug, option::Option, result::Result};
 include!(concat!(env!("OUT_DIR"), "/assets.rs"));
 
 /// Extension trait for [`Result`] and [`Option`] to provide `expecto_patronum()` method.
-pub trait ExpectoPatronumExt {
+pub trait ExpectoPatronumExt: sealed::Sealed {
     /// Type of success value.
     type Success;
 
@@ -60,6 +60,17 @@ impl<T> ExpectoPatronumExt for Option<T> {
             panic!("{panic_msg}")
         })
     }
+}
+
+mod sealed {
+    //! Module with [`Sealed`] trait and its implementations.
+
+    /// Sealed trait to restrict [`ExpectoPatronumExt`](super::ExpectoPatronumExt) implementation.
+    pub trait Sealed {}
+
+    impl<T, E: super::Debug> Sealed for super::Result<T, E> {}
+
+    impl<T> Sealed for super::Option<T> {}
 }
 
 /// Type os Patronus string.
