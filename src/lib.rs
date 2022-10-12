@@ -92,8 +92,8 @@ fn construct_panic_msg(patronus: Patronus, base_msg: &str) -> String {
     // Most efficient way according to https://github.com/hoodie/concatenation_benchmarks-rs
 
     let mut new_msg = String::with_capacity(patronus.len() + base_msg.len() + 1);
-    new_msg.push_str(patronus);
     new_msg.push('\n');
+    new_msg.push_str(patronus);
     new_msg.push_str(base_msg);
     new_msg
 }
