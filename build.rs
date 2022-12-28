@@ -23,7 +23,7 @@ fn main() {
     }
 
     let code = generate_assets_code(assets);
-    fs::write(&dest_path, code).expect("Failed to write asset code");
+    fs::write(dest_path, code).expect("Failed to write asset code");
 }
 
 fn collect_assets(reader: io::BufReader<fs::File>) -> Vec<String> {
