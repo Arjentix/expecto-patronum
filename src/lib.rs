@@ -13,6 +13,7 @@
 #![allow(clippy::expect_used)]
 #![allow(clippy::arithmetic_side_effects)]
 #![allow(clippy::integer_arithmetic)]
+#![allow(clippy::pub_use)]
 #![cfg_attr(not(feature = "std"), no_std)]
 
 use core::{fmt::Debug, option::Option, result::Result};
@@ -96,4 +97,10 @@ fn construct_panic_msg(patronus: Patronus, base_msg: &str) -> String {
     new_msg.push_str(patronus);
     new_msg.push_str(base_msg);
     new_msg
+}
+
+pub mod prelude {
+    //! Prelude for `expecto-patronum` crate.
+
+    pub use super::ExpectoPatronumExt as _;
 }
