@@ -1,11 +1,11 @@
 [package]
-name = "expecto_patronum"
+name = "expecto-patronum"
 version = "0.1.0"
 edition = "2021"
 description = "A library to add beatiful animals to your panic outputs"
 authors = ["Daniil Polyakov <arjentix@gmail.com>"]
 license = "MIT"
-repository = "https:://github.com/arjentix/expecto_patronum"
+repository = "https:://github.com/arjentix/expecto-patronum"
 readme = "README.md"
 keywords = ["panic", "expect", "unwrap", "animal"]
 categories = ["command-line-interface", "rust-patterns", "no-std"]
